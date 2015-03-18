@@ -178,13 +178,16 @@ X_unified_mean_Std <- select(X_unified_mean_Std, -SetType)
 # Finally apply the summarise_each function to compute the average
 # of the mean and std variables in the unified data set.
 # Use the %.% operator to pipe the group_by results to summarise_each
-by_SubjAct <- group_by(X_unified_mean_Std,SubjectId,ActivityName)
-by_SubjAct %>% summarise_each(funs(mean),-c(SubjectId:ActivityName))
+by_SubjAct <- group_by(X_unified_mean_Std,SubjectId,ActivityName) %>% summarise_each(funs(mean),-c(SubjectId:ActivityName))
 
-## The result is a tidy data based on 81 variables:
+## Update the variable names with the actual descriptive variable names from features table
+names(by_SubjAct) <- c("SubjectId","ActivityName",meanStdFeatureNames)
+
+## The result is a tidy data (180x81)
 ## SubjectId,
 ## ActivityName, and
-## 79 variables.
+## 79 variables for a total of 81 variables
+## 30 subjects x 6 activities = 180 observations
 
 ## This data set satisfy the basic tidy data principles:
 ## Each variable forms a column
