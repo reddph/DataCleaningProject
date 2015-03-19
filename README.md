@@ -18,6 +18,10 @@ run_analysis.R script is designed to meet the following project requirements:
 
 ### High level algorithm:  
 
+* Download the UCI HAR data zip file from the URL in the course project description to the working directory  
+
+* Extract the UCI HAR Dataset folder using unzip to the working directory at the same level where the run_analysis.R script resides  
+
 * Import Note the subject\_train.txt and subject\_test.txt files which identify the subjects in training and test respectively into subject\_train and subject\_test data frames
 
 * Import the data set for activity\_labels. This data frame identifies the activity name associated with each activity id  
@@ -92,17 +96,21 @@ X_unified_mean_Std <- arrange(X_unified_mean_Std,ID)
 
 * Apply the summarise\_each function to compute the average of the mean and std variables in the unified data set grouping by Subject and Activity name. Here is a code chunk for the summarise\_each
 ```
-by_SubjAct <- group_by(X_unified_mean_Std,SubjectId,ActivityName)  
-by_SubjAct %>% summarise_each(funs(mean),-c(SubjectId:ActivityName))  
+by_SubjAct <- group_by(X_unified_mean_Std,SubjectId,ActivityName) %>% summarise_each(funs(mean),-c(SubjectId:ActivityName))  
 ```
 
-* The final result is a tidy based on tidy principles with 81 variables:  
+* The final result is a wide data based on tidy principles with 81 variables:  
 + SubjectId  
 + ActivityName  
 + 79 variables  
 
-This data set satisfy the basic tidy data principles:  
-+ Each variable forms a column  
-+ Each observation forms a row  
+* _Note: The variables in this data set are raw signals pertaining to:_   
++ _x, y, and z axes_    
++ _time and frequency domains which makes this a wide data set_  
+  _One could attempt to make this long or tall data set by separation of the axial dimensions (x, y, and Z) or separation by time and frequency domains, but one needs to have a deeper understanding of the signal properties and dependencies between them. Therefore, no attempt has been made here to convert this wide data set to long data set._    
 
+* This data set still conforms to the basic tidy data principles:  
+1. Each variable forms a column  
+2. Each observation forms a row  
 
+* Output the by_SubjAct data frame to _*ActSubjAvgStats.txt*_ in the working directory  

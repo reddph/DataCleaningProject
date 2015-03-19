@@ -1,5 +1,8 @@
 library(dplyr)
 
+download.file(url="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",destfile="./UCI HAR Dataset.zip")
+unzip("./UCI HAR Dataset.zip")
+
 ## Import the data sets from UCI HAR Dataset folder into corresponding data frames
 ## Note the subject_train and subject_test.txt files identify the subjects in training and test respectively
 subject_train <- read.table("./UCI HAR Dataset/train/subject_train.txt", quote="\"")

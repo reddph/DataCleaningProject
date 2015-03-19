@@ -5,6 +5,9 @@ date: "Monday, March 16, 2015"
 output: html_document
 ---
 
+##### The UCI HAR zip file is downloaded from URL: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
+#####and extracted to UCI HAR Dataset folder in the working directory using the R-function unzip
+
 #### Data files used for analysis from UCI HAR folder:
 1. README.txt
 2. features_info.txt
@@ -35,7 +38,7 @@ output: html_document
 **_SetType_** - Data frame to identify the test and training label to the unified mean std set  
 **_X_unified_index_slice_** - Data frame comprising SubjectId, SetType, and ActivityName vectors  
 **_by_SubjAct_** - tidy data to summarize the average of all measurements grouped by subject and activity name across 79 variables pertaining to mean and std  
-**_ActSubjAvgStats.txt_** - Output file name for exporting *by_SubjAct* data frame  
+**_ActSubjAvgStats.txt_** - Output file name. The *by_SubjAct* data frame to the output file in the working directory
 
 #### R Script name:
 
