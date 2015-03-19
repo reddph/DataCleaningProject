@@ -189,7 +189,16 @@ names(by_SubjAct) <- c("SubjectId","ActivityName",meanStdFeatureNames)
 ## 79 variables for a total of 81 variables
 ## 30 subjects x 6 activities = 180 observations
 
-## This data set satisfy the basic tidy data principles:
+## The variables in this data set are raw signals pertaining to:
+##      - x, y, and z axes
+##      - time and frequency domains
+## which makes this a wide data set
+## One could attempt to make this long or tall data set by separation of the axial 
+## dimensions (x, y, and Z) or separation by time and frequency domains, but one needs 
+## to have a deeper understanding of the signal properties and dependencies between them.
+## Therefore, no attempt has been made here to convert this wide data set to long data set.
+## This data set still conforms to the basic tidy data principles:
+##
 ## Each variable forms a column
 ## Each observation forms a row
 
