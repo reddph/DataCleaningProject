@@ -99,18 +99,20 @@ X_unified_mean_Std <- arrange(X_unified_mean_Std,ID)
 by_SubjAct <- group_by(X_unified_mean_Std,SubjectId,ActivityName) %>% summarise_each(funs(mean),-c(SubjectId:ActivityName))  
 ```
 
-* The final result is a wide data based on tidy principles with 81 variables:  
-+ SubjectId  
-+ ActivityName  
-+ 79 variables  
+* The final result is a wide data based on tidy principles with 180 observations and 81 variables:  
+    + SubjectId  
+    + ActivityName  
+    + 79 variables
 
-* _Note: The variables in this data set are raw signals pertaining to:_   
-+ _x, y, and z axes_    
-+ _time and frequency domains which makes this a wide data set_  
-  _One could attempt to make this long or tall data set by separation of the axial dimensions (x, y, and Z) or separation by time and frequency domains, but one needs to have a deeper understanding of the signal properties and dependencies between them. Therefore, no attempt has been made here to convert this wide data set to long data set._    
+* Note: The variables in this data set are raw signals pertaining to:   
+    + _x, y, and z axes_    
+    + _time and frequency domains_  
 
-* This data set still conforms to the basic tidy data principles:  
-1. Each variable forms a column  
-2. Each observation forms a row  
+   _which makes this a wide data set_  
+   _One could attempt to make this long or tall data set by separation of the axial    dimensions (x, y, and Z) or separation by time and frequency domains, but one needs to have a deeper understanding of the signal properties and dependencies between them. Therefore, no attempt has been made here to convert this wide data set to long data set._    
+
+This data set still conforms to the basic tidy data principles:  
+   1. Each variable forms a column  
+   2. Each observation forms a row  
 
 * Output the by_SubjAct data frame to _*ActSubjAvgStats.txt*_ in the working directory  
