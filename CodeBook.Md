@@ -42,4 +42,86 @@ output: html_document
 
 #### R Script name:
 
-**run_analysis.R**
+**run_analysis.R**  
+
+#### Description of algorithm:  
+
+Please see README for detailed description of the algorithm used to derive the independent tidy data set with the average of each variable for each subject and activity  
+
+#### Summary of the methodology used to derive the wide tidy data set:  
+
+* Extract a subset of the features by searching for "-Mean" or "-Std" text string to isolate the useful feature subset for further processing. The criterion for subsetting is to search for case insensitive string patterns: "-mean" or "-std". This criterion may exclude feature names which may have "mean" or "std" in them but for this analysis, it is assumed that they are angle measurements. Here is a code chunk used to extract the tidy data set:  
+    
+```
+grep("-Mean|-Std", features$V2, ignore.case=TRUE, value=TRUE)  
+```
+
+This methodology results in 46 variables for mean and 33 variables for std in addition to Subject and activity variables. Following is a sorted list of the variables in the final data set, with the sort done in decreasing order. This places all the time domain signals in the subset before the frequency domain signals 
+
+```
+ [1] "tGravityAccMag-std()"            "tGravityAccMag-mean()"          
+ [3] "tGravityAcc-std()-Z"             "tGravityAcc-std()-Y"            
+ [5] "tGravityAcc-std()-X"             "tGravityAcc-mean()-Z"           
+ [7] "tGravityAcc-mean()-Y"            "tGravityAcc-mean()-X"           
+ [9] "tBodyGyroMag-std()"              "tBodyGyroMag-mean()"            
+[11] "tBodyGyroJerkMag-std()"          "tBodyGyroJerkMag-mean()"        
+[13] "tBodyGyroJerk-std()-Z"           "tBodyGyroJerk-std()-Y"          
+[15] "tBodyGyroJerk-std()-X"           "tBodyGyroJerk-mean()-Z"         
+[17] "tBodyGyroJerk-mean()-Y"          "tBodyGyroJerk-mean()-X"         
+[19] "tBodyGyro-std()-Z"               "tBodyGyro-std()-Y"              
+[21] "tBodyGyro-std()-X"               "tBodyGyro-mean()-Z"             
+[23] "tBodyGyro-mean()-Y"              "tBodyGyro-mean()-X"             
+[25] "tBodyAccMag-std()"               "tBodyAccMag-mean()"             
+[27] "tBodyAccJerkMag-std()"           "tBodyAccJerkMag-mean()"         
+[29] "tBodyAccJerk-std()-Z"            "tBodyAccJerk-std()-Y"           
+[31] "tBodyAccJerk-std()-X"            "tBodyAccJerk-mean()-Z"          
+[33] "tBodyAccJerk-mean()-Y"           "tBodyAccJerk-mean()-X"          
+[35] "tBodyAcc-std()-Z"                "tBodyAcc-std()-Y"               
+[37] "tBodyAcc-std()-X"                "tBodyAcc-mean()-Z"              
+[39] "tBodyAcc-mean()-Y"               "tBodyAcc-mean()-X"              
+[41] "fBodyGyro-std()-Z"               "fBodyGyro-std()-Y"              
+[43] "fBodyGyro-std()-X"               "fBodyGyro-meanFreq()-Z"         
+[45] "fBodyGyro-meanFreq()-Y"          "fBodyGyro-meanFreq()-X"         
+[47] "fBodyGyro-mean()-Z"              "fBodyGyro-mean()-Y"             
+[49] "fBodyGyro-mean()-X"              "fBodyBodyGyroMag-std()"         
+[51] "fBodyBodyGyroMag-meanFreq()"     "fBodyBodyGyroMag-mean()"        
+[53] "fBodyBodyGyroJerkMag-std()"      "fBodyBodyGyroJerkMag-meanFreq()"
+[55] "fBodyBodyGyroJerkMag-mean()"     "fBodyBodyAccJerkMag-std()"      
+[57] "fBodyBodyAccJerkMag-meanFreq()"  "fBodyBodyAccJerkMag-mean()"     
+[59] "fBodyAccMag-std()"               "fBodyAccMag-meanFreq()"         
+[61] "fBodyAccMag-mean()"              "fBodyAccJerk-std()-Z"           
+[63] "fBodyAccJerk-std()-Y"            "fBodyAccJerk-std()-X"           
+[65] "fBodyAccJerk-meanFreq()-Z"       "fBodyAccJerk-meanFreq()-Y"      
+[67] "fBodyAccJerk-meanFreq()-X"       "fBodyAccJerk-mean()-Z"          
+[69] "fBodyAccJerk-mean()-Y"           "fBodyAccJerk-mean()-X"          
+[71] "fBodyAcc-std()-Z"                "fBodyAcc-std()-Y"               
+[73] "fBodyAcc-std()-X"                "fBodyAcc-meanFreq()-Z"          
+[75] "fBodyAcc-meanFreq()-Y"           "fBodyAcc-meanFreq()-X"          
+[77] "fBodyAcc-mean()-Z"               "fBodyAcc-mean()-Y"              
+[79] "fBodyAcc-mean()-X"              
+
+```
+
+#### Methodology to derive the summarization of the average of each variable for each activity and subject:  
+
+* Apply the summarise\_each function to compute the average of the mean and std variables in the unified data set grouping by Subject and Activity name. Here is a code chunk for the summarise\_each  
+```
+by_SubjAct <- group_by(X_unified_mean_Std,SubjectId,ActivityName) %>% summarise_each(funs(mean),-c(SubjectId:ActivityName))  
+```
+
+* The final result is a wide data based on tidy principles with 180 observations and 81 variables:  
+    + SubjectId  
+    + ActivityName  
+    + 79 variables  
+
+#### Caveats for tidy data set:  
+
+* The variables in this data set are raw signals pertaining to:     
+    + _x, y, and z axes_    
+    + _time and frequency domains, which makes this a wide data set_  
+  
+_One could attempt to make this long or tall data set by separation of the axial dimensions (x, y, and Z) or separation of the time and frequency domains, but one needs to have a deeper understanding of the signal properties and dependencies between them. Therefore, no attempt has been made here to convert this wide data set to long data set._  
+ 
+####
+  
+  
