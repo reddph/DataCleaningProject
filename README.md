@@ -56,7 +56,7 @@ grep("-Mean|-Std", features$V2, ignore.case=TRUE, value=TRUE)
 
 * Add SetType column to the X\_unified\_mean\_std data frame  
 
-* Add a record identifier to the unified data set to keep track of the original records from test and training data sets   
+* Add a record identifier (ID vector) to the unified data set to keep track of the original records from test and training data sets   
 
 * merge the X\_unified\_mean\_std data frame with activity labels data frame joining by the ActivityId column  
 

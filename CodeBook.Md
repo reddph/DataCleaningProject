@@ -36,6 +36,7 @@ output: html_document
 **_Subjects_unified_** - Data frame to unify the test and training subject identifier data sets  
 **_ActivityId_unified_** - Data frame to unify the test and training activity identifier data sets  
 **_SetType_** - Data frame to identify the test and training label to the unified mean std set  
+**_ID_** - a vector of row idenfiers over the entire unified set, used to sort the   data set to the original order since merging the activity label changes the data order  
 **_X_unified_index_slice_** - Data frame comprising SubjectId, SetType, and ActivityName vectors  
 **_by_SubjAct_** - tidy data to summarize the average of all measurements grouped by subject and activity name across 79 variables pertaining to mean and std  
 **_ActSubjAvgStats.txt_** - Output file name. The *by_SubjAct* data frame to the output file in the working directory
